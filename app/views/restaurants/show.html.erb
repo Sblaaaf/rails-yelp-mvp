@@ -1,0 +1,36 @@
+<div class="container">
+  <p style="color: green"><%= notice %></p>
+
+  <%= render @restaurant %>
+  <p><strong>Reviews :</strong></p>
+
+  <ul class="list-group">
+    <% @restaurant.reviews.each do |review| %>
+      <!-- Review Item -->
+      <li id="show_review" class="list-group-item d-flex align-items-center">
+        <!-- Rating Block -->
+        <div class="rating-block m-3">
+          <span class="text-black fw-bold"><%= review.rating %>⭐</span>
+        </div>
+        <!-- Review Content -->
+        <div class="review-content flex-grow-1">
+            <p class="mb-1"><%= review.content %></p>
+        </div>
+        <!-- Delete Button -->
+        <div class="delete-block p-3">
+            <%= link_to "❌",
+              review_path(review),
+              data: {turbo_method: :delete, turbo_confirm: "Are you sure?"
+              }, class:"btn btn-outline-danger"
+            %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="d-flex justify-content-between">
+    <%= link_to "🔙 Back", restaurants_path, class:"btn btn-primary" %>
+    <%= link_to "Change informations 🖊️", edit_restaurant_path(@restaurant), class:"btn btn-warning" %>
+    <%= button_to "Delete 🗑️", @restaurant, method: :delete, class:"btn btn-danger" %>
+  </div>
+</div>
